@@ -25,10 +25,10 @@ def change_mode(message):
 
 def change_m(message, con):
     cur = con.cursor()
-    mode = message.text
-    if mode != "text" or mode != "audio":
+    mode = message.text.strip()
+    if mode not in ("text", "audio"):
         bot.send_message(message.chat.id, f"Режима '{mode}' нет\nПопробуйте написать audio или text")
-        change_mode()
+        bot.register_next_step_handler(message, partial(change_m, con=con))
     else:
         cur.execute(f"UPDATE settings SET mode = '{mode}' WHERE chat_id = '{message.chat.id}'")
         con.commit()
@@ -165,3 +165,4 @@ def get_text_messages(message):
 
 
 bot.polling()
+
