@@ -27,9 +27,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags:
-          - lionpkh/friday-bot:latest
-          - lionpkh/friday-bot:${{ github.ref_name }}
+          tags: |
+            lionpkh/friday-bot:latest
+            lionpkh/friday-bot:${{ github.ref_name }}
   deploy:
     runs-on: ubuntu-latest
     environment: deploy
